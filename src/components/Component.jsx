@@ -1,0 +1,79 @@
+import React, { useState, useRef } from "react";
+
+import { RiUpload2Line } from "react-icons/ri";
+import { IoIosArrowDown } from "react-icons/io";
+import { IoIosArrowUp } from "react-icons/io";
+
+const Component = ({ tableName, TableIcon, tables }) => {
+  const [isShow, setIsShow] = useState(false);
+
+  const fileInputRef = useRef(null);
+
+  const handleButtonClick = () => {
+    // Trigger the hidden file input click
+    fileInputRef.current.click();
+  };
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      // Handle the selected file
+      console.log("Selected file:", file);
+    }
+  };
+
+  return (
+    <div>
+      {/* Title */}
+      <div
+        className="flex items-center justify-between border-t border-b py-1 px-5 cursor-pointer"
+        onClick={() => setIsShow(!isShow)}
+      >
+        <div className="flex gap-5 items-center">
+          <TableIcon className="w-5 h-5" />
+          <div className="rounded-md py-1 px-5">
+            <h1 className="text-md font-semibold">{tableName}</h1>
+          </div>
+        </div>
+        {isShow ? (
+          <IoIosArrowUp className="w-5 h-5" />
+        ) : (
+          <IoIosArrowDown className="w-5 h-5" />
+        )}
+      </div>
+
+      {/* Conditionally render the below div based on isShow */}
+      {isShow && (
+        <div className="bg-white">
+          {/* Table images from tables array */}
+          <div className="p-5 grid grid-cols-3 gap-5">
+            {tables.map((table, index) => (
+              <div
+                key={index}
+                className="w-20 h-20 border-black border-2 rounded-lg"
+              >
+                <img src={table} alt="table" className="" />
+              </div>
+            ))}
+            <button
+              onClick={handleButtonClick}
+              className="flex flex-col items-center space-y-2 p-2 border-2 border-blue-950 hover:bg-white hover:text-blue-950 rounded-md bg-blue-950 text-white"
+            >
+              <RiUpload2Line className="w-7 h-7 hover:translate-y-2 transition duration-300" />
+              <p className="text-[10px] font-bold">Upload new</p>
+              <input
+                type="file"
+                accept="image/*"
+                ref={fileInputRef}
+                className="hidden"
+                onChange={handleFileChange}
+              ></input>
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default Component;

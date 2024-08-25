@@ -8,8 +8,8 @@ function App() {
   return (
     <>
     <div>
-      {/* <Canvas/> */}
-      <MainPage />
+      <Canvas/>
+      {/* <MainPage /> */}
     </div>
     </>
   )

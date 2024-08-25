@@ -11,8 +11,7 @@ const MainPage = () => {
           <TopBar />
         </div>
         <div className="h-screen bg-gray-300 w-80">
-            <SideBar/>
-
+          <SideBar />
         </div>
       </div>
       <div className="flex items-center justify-center"></div>
