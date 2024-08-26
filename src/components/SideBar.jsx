@@ -27,28 +27,11 @@ import S_4 from "../assets/Shops/pizza.png";
 import { MdEmojiPeople } from "react-icons/md";
 import Hospital from "../assets/Other/hospital.png";
 
-const SideBar = () => {
+const SideBar = ({ onAddComponent }) => {
   const tables = [Table_1, Table_2, Table_3];
   const toilets = [T_1, T_2, T_3, T_4];
   const shops = [S_1, S_2, S_3, S_4];
   const other = [Hospital];
-
-
-
-  const fileInputRef = useRef(null);
-
-  const handleButtonClick = () => {
-    // Trigger the hidden file input click
-    fileInputRef.current.click();
-  };
-
-  const handleFileChange = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      // Handle the selected file
-      console.log("Selected file:", file);
-    }
-  };
 
   return (
     <div className="py-5 bg-blue-950 h-full items-start text-start text-white">
@@ -59,44 +42,40 @@ const SideBar = () => {
         </div>
       </div>
 
-      {/* Components */}
       <div className="mt-5 overflow-y-auto max-h-[calc(100vh-200px)] scrollbar-custom pr-2">
         <Component
           tableName="Tables"
           TableIcon={GiRoundTable}
           tables={tables}
+          onAddComponent={onAddComponent}
         />
-
         <Component
           tableName="Toilets"
           TableIcon={FaToiletsPortable}
           tables={toilets}
+          onAddComponent={onAddComponent}
         />
-
-        <Component tableName="Shops" TableIcon={FaShop} tables={shops} />
-
+        <Component
+          tableName="Shops"
+          TableIcon={FaShop}
+          tables={shops}
+          onAddComponent={onAddComponent}
+        />
         <Component
           tableName="Others"
           TableIcon={MdEmojiPeople}
           tables={other}
+          onAddComponent={onAddComponent}
         />
       </div>
 
-      {/* Background image uploader */}
       <div className="fixed bottom-0 left-0 right-0 py-2 px-4 flex items-center">
         <button
-          onClick={handleButtonClick}
-          className="flex  items-center justify-center gap-5 py-1 px-4 border-2 border-white hover:bg-white hover:text-blue-950 rounded-md bg-blue-950 text-white"
+          onClick={() => fileInputRef.current.click()}
+          className="flex items-center justify-center gap-5 py-1 px-4 border-2 border-white hover:bg-white hover:text-blue-950 rounded-md bg-blue-950 text-white"
         >
           <RiUpload2Line className="w-5 h-5" />
           <p className="text-[14px] font-bold">Upload Background Image</p>
-          <input
-            type="file"
-            accept="image/*"
-            ref={fileInputRef}
-            className="hidden"
-            onChange={handleFileChange}
-          ></input>
         </button>
       </div>
     </div>

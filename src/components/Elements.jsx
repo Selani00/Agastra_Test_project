@@ -1,28 +1,29 @@
-import React from 'react'
+import React from 'react';
 import { useDraggable } from '@dnd-kit/core';
 
+const Elements = ({ id, image, initialPosition }) => {
+  const { attributes, listeners, setNodeRef, transform } = useDraggable({
+    id,
+  });
 
-const Elements = ({ id, initialPosition }) => {
-    const { attributes, listeners, setNodeRef, transform } = useDraggable({
-        id,
-      });
-    
-      const style = {
-        position: 'absolute',
-        top: `${initialPosition.y}px`,
-        left: `${initialPosition.x}px`,
-        transform: `translate3d(${transform?.x || 0}px, ${transform?.y || 0}px, 0)`,
-        width: '50px',
-        height: '50px',
-        backgroundColor: 'blue',
-        touchAction: 'none',
-      };
-    
-      return (
-        <div ref={setNodeRef} style={style} {...listeners} {...attributes}>
-          {id}
-        </div>
-      );
-}
+  // The current position is the initial position plus the transform from the drag
+  const style = {
+    transform: `translate3d(${initialPosition.x + (transform?.x || 0)}px, ${
+      initialPosition.y + (transform?.y || 0)
+    }px, 0)`,
+  };
 
-export default Elements
+  return (
+    <div
+      ref={setNodeRef}
+      style={style}
+      {...listeners}
+      {...attributes}
+      className="absolute"
+    >
+      <img src={image} alt="element" className="w-20 h-20" />
+    </div>
+  );
+};
+
+export default Elements;

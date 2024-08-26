@@ -1,6 +1,7 @@
 import './App.css'
 import Canvas from './components/Canvas'
 import MainPage from './pages/MainPage'
+import Test from './pages/Test'
 
 function App() {
 
@@ -8,8 +9,9 @@ function App() {
   return (
     <>
     <div>
-      <Canvas/>
-      {/* <MainPage /> */}
+      {/* <Canvas/> */}
+      <MainPage />
+      {/* <Test/> */}
     </div>
     </>
   )
